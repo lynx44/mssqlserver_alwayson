@@ -1,0 +1,7 @@
+<% @nodes.each do |node| %>
+:Connect <%= node.hostname %>
+
+ALTER AVAILABILITY GROUP [<%= @name %>] JOIN;
+
+GO
+<% end %>

@@ -1,0 +1,9 @@
+default['mssqlserver']['alwayson']['name'] = nil #required
+default['mssqlserver']['alwayson']['database'] = nil #required
+default['mssqlserver']['alwayson']['nodes'] = nil #required
+default['mssqlserver']['alwayson']['endpoint']['name'] = nil #required
+default['mssqlserver']['alwayson']['endpoint']['ipaddress'] = nil #required
+default['mssqlserver']['alwayson']['endpoint']['mask'] = "255.255.255.0"
+default['mssqlserver']['alwayson']['endpoint']['port'] = 1433
+default['mssqlserver']['alwayson']['primary_role_name'] = 'alwayson_primary'
+default['mssqlserver']['alwayson']['secondary_role_name'] = 'alwayson_secondary'

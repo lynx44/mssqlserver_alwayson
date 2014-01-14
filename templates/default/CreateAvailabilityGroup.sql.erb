@@ -1,0 +1,18 @@
+:Connect <%= @server %>
+
+USE [master]
+
+GO
+
+IF NOT EXISTS(SELECT [group_id] FROM [master].[sys].[availability_groups] WHERE Name = '<%= @name %>')
+BEGIN
+    CREATE AVAILABILITY GROUP [<%= @name %>]
+    WITH (AUTOMATED_BACKUP_PREFERENCE = <%= @automated_backup_preference %>)
+    FOR DATABASE [<%= @database %>]
+    REPLICA ON
+    <% @nodes.each do |node| %>
+        N'<%= node.hostname %>' WITH (ENDPOINT_URL = N'TCP://<%= node.hostname %>.<%= node.domain %>:5022', FAILOVER_MODE = <%= node.failover_mode %>, AVAILABILITY_MODE = <%= node.availability_mode %>, BACKUP_PRIORITY = <%= node.backup_priority %>, SECONDARY_ROLE(ALLOW_CONNECTIONS = <%= node.allow_connections %>))<%= node == @nodes.last ? ";" : "," %>
+    <% end %>
+END
+
+GO
