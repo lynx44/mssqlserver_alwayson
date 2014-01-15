@@ -33,7 +33,10 @@ end try
 begin catch
 -- If the wait loop fails, do not stop execution of the alter database statement
 end catch
-ALTER DATABASE [EmailBlast] SET HADR AVAILABILITY GROUP = [<%= @name %>];
+IF NOT EXISTS(SELECT * FROM sys.databases WHERE name='<%= @database %>' AND replica_id IS NOT NULL)
+BEGIN
+    ALTER DATABASE [EmailBlast] SET HADR AVAILABILITY GROUP = [<%= @name %>];
+END
 
 GO
 <% end %>

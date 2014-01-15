@@ -12,7 +12,7 @@ action :create do
                 })
     end
 
-    mssqlserver_sqlcommand "create server logins" do
+    mssqlserver_sql_command "create server logins" do
       script scriptPath
       database "master"
     end

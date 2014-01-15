@@ -9,7 +9,7 @@ action :create do
               })
   end
 
-  mssqlserver_sqlcommand "create health" do
+  mssqlserver_sql_command "create health" do
     script scriptPath
     database "master"
   end

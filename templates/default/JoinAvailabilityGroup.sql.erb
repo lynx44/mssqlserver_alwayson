@@ -1,7 +1,10 @@
 <% @nodes.each do |node| %>
 :Connect <%= node.hostname %>
 
-ALTER AVAILABILITY GROUP [<%= @name %>] JOIN;
+IF NOT EXISTS(SELECT * FROM sys.availability_groups WHERE name='<%= @name %>')
+BEGIN
+    ALTER AVAILABILITY GROUP [<%= @name %>] JOIN;
+END
 
 GO
 <% end %>

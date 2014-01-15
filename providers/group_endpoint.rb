@@ -19,7 +19,7 @@ action :create do
               })
   end
 
-  mssqlserver_sqlcommand "create availability group" do
+  mssqlserver_sql_command "create availability group" do
     script scriptPath
     database "master"
   end

@@ -1,4 +1,4 @@
-actions :create, :connect, :join
+actions :create, :connect, :join, :destroy
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :database, :kind_of => String

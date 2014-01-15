@@ -17,7 +17,7 @@ action :create do
               })
   end
 
-  mssqlserver_sqlcommand "create availability group" do
+  mssqlserver_sql_command "create availability group" do
     script scriptPath
     database "master"
   end
@@ -25,17 +25,19 @@ end
 
 action :connect do
   name = @new_resource.name
+  database = @new_resource.database
   nodes = mapNodes()
   scriptPath = "#{Chef::Config[:file_cache_path]}\\ConnectToGroup.sql"
   template scriptPath do
     source "ConnectToGroup.sql.erb"
     variables({
                   "nodes" => nodes,
-                  "name" => name
+                  "name" => name,
+                  "database" => database
               })
   end
 
-  mssqlserver_sqlcommand "connect to availability group" do
+  mssqlserver_sql_command "connect to availability group" do
     script scriptPath
     database "master"
   end
@@ -53,7 +55,24 @@ action :join do
               })
   end
 
-  mssqlserver_sqlcommand "join availability group" do
+  mssqlserver_sql_command "join availability group" do
+    script scriptPath
+    database "master"
+  end
+end
+
+action :destroy do
+  name = @new_resource.name
+
+  scriptPath = "#{Chef::Config[:file_cache_path]}\\DestroyAvailabilityGroup.sql"
+  template scriptPath do
+    source "DestroyAvailabilityGroup.sql.erb"
+    variables({
+                  "name" => name
+              })
+  end
+
+  mssqlserver_sql_command "destroy availability group" do
     script scriptPath
     database "master"
   end

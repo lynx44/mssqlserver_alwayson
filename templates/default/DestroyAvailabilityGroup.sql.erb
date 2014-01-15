@@ -1,0 +1,4 @@
+IF EXISTS(SELECT * FROM sys.availability_groups WHERE name='<%= @name %>')
+BEGIN
+    DROP AVAILABILITY GROUP [<%= @name %>];
+END

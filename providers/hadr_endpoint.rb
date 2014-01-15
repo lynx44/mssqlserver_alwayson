@@ -9,7 +9,7 @@ action :create do
      })
   end
 
-  mssqlserver_sqlcommand "create hadr endpoint" do
+  mssqlserver_sql_command "create hadr endpoint" do
     script scriptPath
     database "master"
   end

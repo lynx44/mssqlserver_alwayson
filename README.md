@@ -1,17 +1,13 @@
 mssqlserver_alwayson Cookbook
 =============================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+This cookbook configures nodes in an AlwayOn Availability Group
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - mssqlserver_alwayson needs toaster to brown your bagel.
+windows
+powershell
+mssqlserver
+windows_firewall
 
 Attributes
 ----------
@@ -27,9 +23,9 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['mssqlserver_alwayson']['bacon']</tt></td>
+    <td><tt>['mssqlserver']['alwayson']['primary_role_name']</tt></td>
     <td>Boolean</td>
-    <td>whether to include bacon</td>
+    <td>The role of the primary DB node</td>
     <td><tt>true</tt></td>
   </tr>
 </table>
