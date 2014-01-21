@@ -4,7 +4,7 @@ USE [master]
 
 GO
 
-IF NOT EXISTS(SELECT [group_id] FROM [master].[sys].[availability_group_listeners] WHERE dns_name = 'emailblast')
+IF NOT EXISTS(SELECT [group_id] FROM [master].[sys].[availability_group_listeners] WHERE dns_name = '<%= @listener_name %>')
 BEGIN
     ALTER AVAILABILITY GROUP [<%= @group_name %>]
     ADD LISTENER N'<%= @listener_name %>' (

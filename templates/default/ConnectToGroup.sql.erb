@@ -35,7 +35,7 @@ begin catch
 end catch
 IF NOT EXISTS(SELECT * FROM sys.databases WHERE name='<%= @database %>' AND replica_id IS NOT NULL)
 BEGIN
-    ALTER DATABASE [EmailBlast] SET HADR AVAILABILITY GROUP = [<%= @name %>];
+    ALTER DATABASE [<%= @database %>] SET HADR AVAILABILITY GROUP = [<%= @name %>];
 END
 
 GO
