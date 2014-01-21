@@ -1,5 +1,4 @@
 <% @nodes.each do |currNode| %>
 IF NOT EXISTS (SELECT loginname FROM master.dbo.syslogins WHERE name = '<%= currNode.domain.split(".")[0].upcase %>\<%= currNode.hostname %>$')
     CREATE LOGIN [<%= currNode.domain.split(".")[0].upcase %>\<%= currNode.hostname %>$] FROM WINDOWS
---GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [<%= currNode.domain.split(".")[0].upcase %>\<%= currNode.hostname %>$]
 <% end %>
