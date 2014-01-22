@@ -1,5 +1,5 @@
 default['mssqlserver']['alwayson']['name'] = nil #required
-default['mssqlserver']['alwayson']['database'] = nil #required
+default['mssqlserver']['alwayson']['databases'] = nil #required
 default['mssqlserver']['alwayson']['nodes'] = nil #required
 default['mssqlserver']['alwayson']['endpoint']['name'] = nil #required
 default['mssqlserver']['alwayson']['endpoint']['ipaddress'] = nil #required

@@ -11,7 +11,7 @@ mssqlserver_alwayson_health "create health endpoints" do
 end
 
 mssqlserver_alwayson_group node['mssqlserver']['alwayson']['name'] do
-  database node['mssqlserver']['alwayson']['database']
+  databases node['mssqlserver']['alwayson']['databases']
   nodes allNodes
   action :create
 end
