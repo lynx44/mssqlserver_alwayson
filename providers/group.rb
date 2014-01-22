@@ -3,43 +3,43 @@ action :create do
   Chef::Log.info("nodes: #{groupNodes}");
   name = @new_resource.name
   automated_backup_preference = @new_resource.automated_backup_preference
-  database = @new_resource.database
+  databases = @new_resource.databases
 
   scriptPath = "#{Chef::Config[:file_cache_path]}\\CreateAvailabilityGroup.sql"
   template scriptPath do
-    source "CreateAvailabilityGroup.sql.erb"
+    source 'CreateAvailabilityGroup.sql.erb'
     variables({
-                  "server" => node['hostname'],
-                  "database" => database,
-                  "name" => name,
-                  "automated_backup_preference" => automated_backup_preference,
-                  "nodes" => groupNodes
+                  'server' => node['hostname'],
+                  'databases' => databases,
+                  'name' => name,
+                  'automated_backup_preference' => automated_backup_preference,
+                  'nodes' => groupNodes
               })
   end
 
-  mssqlserver_sql_command "create availability group" do
+  mssqlserver_sql_command 'create availability group' do
     script scriptPath
-    database "master"
+    database 'master'
   end
 end
 
 action :connect do
   name = @new_resource.name
-  database = @new_resource.database
+  databases = @new_resource.databases
   nodes = mapNodes()
   scriptPath = "#{Chef::Config[:file_cache_path]}\\ConnectToGroup.sql"
   template scriptPath do
-    source "ConnectToGroup.sql.erb"
+    source 'ConnectToGroup.sql.erb'
     variables({
-                  "nodes" => nodes,
-                  "name" => name,
-                  "database" => database
+                  'nodes' => nodes,
+                  'name' => name,
+                  'databases' => databases
               })
   end
 
-  mssqlserver_sql_command "connect to availability group" do
+  mssqlserver_sql_command 'connect to availability group' do
     script scriptPath
-    database "master"
+    database 'master'
   end
 end
 
@@ -48,16 +48,16 @@ action :join do
   nodes = mapNodes()
   scriptPath = "#{Chef::Config[:file_cache_path]}\\JoinAvailabilityGroup.sql"
   template scriptPath do
-    source "JoinAvailabilityGroup.sql.erb"
+    source 'JoinAvailabilityGroup.sql.erb'
     variables({
                   "nodes" => nodes,
                   "name" => name
               })
   end
 
-  mssqlserver_sql_command "join availability group" do
+  mssqlserver_sql_command 'join availability group' do
     script scriptPath
-    database "master"
+    database 'master'
   end
 end
 
@@ -66,15 +66,15 @@ action :destroy do
 
   scriptPath = "#{Chef::Config[:file_cache_path]}\\DestroyAvailabilityGroup.sql"
   template scriptPath do
-    source "DestroyAvailabilityGroup.sql.erb"
+    source 'DestroyAvailabilityGroup.sql.erb'
     variables({
-                  "name" => name
+                  'name' => name
               })
   end
 
-  mssqlserver_sql_command "destroy availability group" do
+  mssqlserver_sql_command 'destroy availability group' do
     script scriptPath
-    database "master"
+    database 'master'
   end
 end
 

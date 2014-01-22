@@ -33,10 +33,11 @@ end try
 begin catch
 -- If the wait loop fails, do not stop execution of the alter database statement
 end catch
-IF NOT EXISTS(SELECT * FROM sys.databases WHERE name='<%= @database %>' AND replica_id IS NOT NULL)
+<% @databases.each do |database| %>
+IF NOT EXISTS(SELECT * FROM sys.databases WHERE name='<%= database %>' AND replica_id IS NOT NULL)
 BEGIN
-    ALTER DATABASE [<%= @database %>] SET HADR AVAILABILITY GROUP = [<%= @name %>];
+    ALTER DATABASE [<%= database %>] SET HADR AVAILABILITY GROUP = [<%= @name %>];
 END
-
 GO
+<% end %>
 <% end %>
