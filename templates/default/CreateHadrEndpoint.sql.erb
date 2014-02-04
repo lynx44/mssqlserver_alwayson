@@ -26,10 +26,12 @@ use [master]
 
 GO
 
-GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [NT Service\MSSQLSERVER]
+GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [<%= @logon_username %>]
+<% if @uses_system_account %>
 <% @nodes.each do |hadr_node| %>
 <% if hadr_node.hostname != node.hostname %>
 GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [<%= hadr_node.domain.split(".")[0].upcase %>\<%= hadr_node.hostname %>$]
+<% end %>
 <% end %>
 <% end %>
 

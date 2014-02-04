@@ -2,17 +2,21 @@
 #Chef::Log.info("database attribute: #{node['mssqlserver']['alwayson']['database']}")
 #Chef::Log.info("nodes attribute: #{node['mssqlserver']['alwayson']['nodes']}")
 
-environment = node.chef_environment
+sql_server_service = AlwaysOn::SqlServerService.new
 
-primary_role = node['mssqlserver']['alwayson']['primary_role_name']
-secondary_role = node['mssqlserver']['alwayson']['secondary_role_name']
+if(sql_server_service.uses_system_account)
+  environment = node.chef_environment
 
-Chef::Log.info("Primary Role Name: #{primary_role}")
-Chef::Log.info("Secondary Role Name: #{secondary_role}")
+  primary_role = node['mssqlserver']['alwayson']['primary_role_name']
+  secondary_role = node['mssqlserver']['alwayson']['secondary_role_name']
 
-nodes = GroupNodeCollection.new(node).get_nodes
-Chef::Log.info("AlwaysOn Login Nodes: #{nodes}")
+  Chef::Log.info("Primary Role Name: #{primary_role}")
+  Chef::Log.info("Secondary Role Name: #{secondary_role}")
 
-mssqlserver_alwayson_logins "create logins" do
-  nodes nodes
+  nodes = GroupNodeCollection.new(node).get_nodes
+  Chef::Log.info("AlwaysOn Login Nodes: #{nodes}")
+
+  mssqlserver_alwayson_logins 'create logins' do
+    nodes nodes
+  end
 end

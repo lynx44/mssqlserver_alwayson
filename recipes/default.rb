@@ -21,6 +21,7 @@ mssqlserver_alwayson_group_endpoint node['mssqlserver']['alwayson']['endpoint'][
   ip_address node['mssqlserver']['alwayson']['endpoint']['ipaddress']
   mask       node['mssqlserver']['alwayson']['endpoint']['mask']
   port       node['mssqlserver']['alwayson']['endpoint']['port']
+  not_if { node['mssqlserver']['alwayson']['endpoint']['name'] == nil }
 end
 
 nodesWithoutCurrent = nodeCollection.get_nodes_except_current

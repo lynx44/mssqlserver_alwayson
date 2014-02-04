@@ -1,8 +1,5 @@
 actions :create
+default_action :create
 
 attribute :nodes, :kind_of => Array #array of GroupNode objects
-
-def initialize(*args)
-  super
-  @action = :create
-end
+attribute :service_username, :kind_of => String
