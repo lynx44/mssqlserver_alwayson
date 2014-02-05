@@ -6,7 +6,7 @@ module AlwaysOn
 
     def logon_username
       shell_output = run_shell('sc qc MSSQLSERVER')
-      @logon_username ||= /SERVICE_START_NAME[\s]+:[\s]+(?<name>.+)$/.match(shell_output)['name']
+      @logon_username ||= /SERVICE_START_NAME[\s]+:[\s]+(?<name>.+)$/.match(shell_output)['name'].strip
     end
 
     def uses_system_account

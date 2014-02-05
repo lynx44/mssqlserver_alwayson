@@ -1,4 +1,4 @@
-<% @nodes.each do |currNode| %>
-IF NOT EXISTS (SELECT loginname FROM master.dbo.syslogins WHERE name = '<%= currNode.domain.split(".")[0].upcase %>\<%= currNode.hostname %>$')
-    CREATE LOGIN [<%= currNode.domain.split(".")[0].upcase %>\<%= currNode.hostname %>$] FROM WINDOWS
+<% @logins.each do |login| %>
+IF NOT EXISTS (SELECT loginname FROM master.dbo.syslogins WHERE name = '<%= login %>')
+    CREATE LOGIN [<%= login %>] FROM WINDOWS
 <% end %>

@@ -1,0 +1,1 @@
+default['mssqlserver']['alwayson']['backup_directory'] = nil
