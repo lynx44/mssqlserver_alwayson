@@ -5,7 +5,7 @@ action :backup do
   mssqlserver_backup_transaction_log description do
     destination file_path
     database database_name
-    with ['NOFORMAT', 'NOINIT', 'NOSKIP', 'REWIND', 'NOUNLOAD', 'COMPRESSION',  'STATS = 5']
+    with ['NOFORMAT', 'INIT', 'NOSKIP', 'REWIND', 'NOUNLOAD', 'COMPRESSION',  'STATS = 5']
   end
 end
 
