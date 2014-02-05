@@ -10,7 +10,7 @@ module AlwaysOn
     end
 
     def uses_system_account
-      ['LocalSystem', 'NT AUTHORITY\NetworkService'].any? { |u| u == logon_username }
+      ['LocalSystem', 'NT AUTHORITY\NetworkService', 'NT Service\MSSQLSERVER'].any? { |u| u == logon_username }
     end
 
     private
