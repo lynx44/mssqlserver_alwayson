@@ -1,0 +1,4 @@
+ALTER AVAILABILITY GROUP [<%= @availability_group %>]
+MODIFY REPLICA ON N'<%= @primary_node %>'
+WITH (PRIMARY_ROLE
+(READ_ONLY_ROUTING_LIST=(<%= @routing_list %>)));

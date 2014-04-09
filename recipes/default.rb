@@ -36,3 +36,12 @@ mssqlserver_alwayson_group node['mssqlserver']['alwayson']['name'] do
   nodes nodesWithoutCurrent
   action :connect
 end
+
+allNodes.each do |current_node|
+  mssqlserver_alwayson_read_only_routing_list "create readonly routing list for #{current_node['hostname']}" do
+      availability_group node['mssqlserver']['alwayson']['name']
+      primary_node current_node['hostname']
+      routing_list allNodes.map { |n| n['hostname'] }.select { |hostname| hostname != current_node['hostname'] }.push(current_node['hostname'])
+      action :update
+  end
+end
