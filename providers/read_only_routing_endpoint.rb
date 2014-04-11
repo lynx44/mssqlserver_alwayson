@@ -27,5 +27,5 @@ def node_name
 end
 
 def url
-  Regexp.escape(@new_resource.url)
+  @new_resource.url
 end
