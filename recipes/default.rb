@@ -38,6 +38,14 @@ mssqlserver_alwayson_group node['mssqlserver']['alwayson']['name'] do
 end
 
 allNodes.each do |current_node|
+  mssqlserver_alwayson_read_only_routing_endpoint "create readonly routing endpoint for #{current_node['hostname']}" do
+    availability_group node['mssqlserver']['alwayson']['name']
+    node_name current_node['hostname']
+    url "TCP://#{current_node['fqdn']}:1433"
+  end
+end
+
+allNodes.each do |current_node|
   mssqlserver_alwayson_read_only_routing_list "create readonly routing list for #{current_node['hostname']}" do
       availability_group node['mssqlserver']['alwayson']['name']
       primary_node current_node['hostname']
