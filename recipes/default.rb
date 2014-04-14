@@ -16,12 +16,13 @@ mssqlserver_alwayson_group node['mssqlserver']['alwayson']['name'] do
   action :create
 end
 
-mssqlserver_alwayson_group_endpoint node['mssqlserver']['alwayson']['endpoint']['name'] do
-  group_name node['mssqlserver']['alwayson']['name']
-  ip_address node['mssqlserver']['alwayson']['endpoint']['ipaddress']
-  mask       node['mssqlserver']['alwayson']['endpoint']['mask']
-  port       node['mssqlserver']['alwayson']['endpoint']['port']
-  not_if { node['mssqlserver']['alwayson']['endpoint']['name'] == nil }
+if node['mssqlserver']['alwayson']['endpoint']['name'] != nil
+  mssqlserver_alwayson_group_endpoint node['mssqlserver']['alwayson']['endpoint']['name'] do
+    group_name node['mssqlserver']['alwayson']['name']
+    ip_address node['mssqlserver']['alwayson']['endpoint']['ipaddress']
+    mask       node['mssqlserver']['alwayson']['endpoint']['mask']
+    port       node['mssqlserver']['alwayson']['endpoint']['port']
+  end
 end
 
 nodesWithoutCurrent = nodeCollection.get_nodes_except_current
