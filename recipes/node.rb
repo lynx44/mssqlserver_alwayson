@@ -1,7 +1,7 @@
 ::Chef::Recipe.send(:include, Windows::RegistryHelper)
 
 windows_firewall_rule "SQL Server" do
-  port 1433
+  localport "1433"
 end
 
 alwaysOnInstalled = false
